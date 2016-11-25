@@ -1,13 +1,18 @@
 <?php
 
+namespace Slidely;
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use Slidely\Service\AmazonProductService;
 use Slim\App;
 
 use Slim\Container;
 
+define('SETTINGS', 'settings');
+
 $configuration = [
-    'settings' => [
+    SETTINGS => [
         'displayErrorDetails' => true,
         'amazon_search_endpoint' => 'https://www.amazon.com/s/',
         'amazon_search_keyword_parameter' => 'field-keywords'
@@ -21,8 +26,8 @@ $app = new App($c);
 $container = $app->getContainer();
 
 $container["amazonProductService"] = function($c) {
-    return new \Slidely\Service\AmazonProductService($c['settings']['amazon_search_endpoint'],
-                                                     $c['settings']['amazon_search_keyword_parameter']);
+    return new AmazonProductService($c[SETTINGS]['amazon_search_endpoint'],
+                                    $c[SETTINGS]['amazon_search_keyword_parameter']);
 };
 
 $app->get('/api/product-search', function (Request $request, Response $response) {
@@ -31,7 +36,7 @@ $app->get('/api/product-search', function (Request $request, Response $response)
 
     $keyword = $params['keyword'];
 
-    /** @var \Slidely\Service\AmazonProductService $amazonProductService */
+    /** @var AmazonProductService $amazonProductService */
     $amazonProductService = $this->amazonProductService;
 
     $productResponse = $amazonProductService->getFirstProduct($keyword);
