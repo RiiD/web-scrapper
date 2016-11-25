@@ -46,7 +46,9 @@ abstract class AmazonProductScrapper implements WebScrapper {
      */
     protected function extractProductFullPrice(\phpQueryObject $productDom): float {
         $priceDom = $productDom->find('span.sx-price');
-        $price = $priceDom->find('sx-price-whole')->html() . '.' . $priceDom->find('sx-price-fractional')->html();
+        $price = $priceDom->find('span.sx-price-whole')->html() .
+                 '.' .
+                 $priceDom->find('span.sx-price-fractional')->html();
         return (float) $price;
     }
 
