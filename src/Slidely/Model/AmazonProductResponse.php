@@ -90,6 +90,7 @@ class AmazonProductResponse implements \JsonSerializable {
             'rating' => $this->getRating(),
             'full_price' => $this->getFullPrice(),
             'last_price' => $this->getLastPrice(),
+            'keyword' => $this->getKeyword()
         ];
     }
 }
