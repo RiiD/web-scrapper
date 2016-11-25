@@ -69,7 +69,7 @@ abstract class AmazonProductScrapper implements WebScrapper {
      * Returns data in array.
      *
      * Example output:
-     * ['name' => 'IPhone 6', 'rating' => 4.5, 'fullPrice' => 500.00, 'lastPrice' => 400.00]
+     * ['name' => 'IPhone 6', 'rating' => 4.5, 'full_price' => 500.00, 'last_price' => 400.00]
      *
      * @param \phpQueryObject $productDom
      *
@@ -78,8 +78,8 @@ abstract class AmazonProductScrapper implements WebScrapper {
     protected function extractProductData(\phpQueryObject $productDom): array {
         return [
             'name' => $this->extractProductName($productDom),
-            'fullPrice' => $this->extractProductFullPrice($productDom),
-            'lastPrice' => $this->extractProductLastPrice($productDom),
+            'full_price' => $this->extractProductFullPrice($productDom),
+            'last_price' => $this->extractProductLastPrice($productDom),
             'rating' => $this->extractProductRating($productDom)
         ];
     }
