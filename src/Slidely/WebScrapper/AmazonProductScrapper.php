@@ -45,10 +45,8 @@ abstract class AmazonProductScrapper implements WebScrapper {
      * @return float
      */
     protected function extractProductFullPrice(\phpQueryObject $productDom): float {
-        $priceDom = $productDom->find('span.sx-price');
-        $price = $priceDom->find('span.sx-price-whole')->html() .
-                 '.' .
-                 $priceDom->find('span.sx-price-fractional')->html();
+        $priceDom = $productDom->find('span.a-text-strike');
+        $price = substr($priceDom->html(), 1);
         return (float) $price;
     }
 
@@ -60,8 +58,11 @@ abstract class AmazonProductScrapper implements WebScrapper {
      * @return float
      */
     protected function extractProductLastPrice(\phpQueryObject $productDom): float {
-        // TODO: Waiting for Yaniv for last price definition
-        return (float)0;
+        $priceDom = $productDom->find('span.sx-price');
+        $price = $priceDom->find('span.sx-price-whole')->html() .
+                 '.' .
+                 $priceDom->find('span.sx-price-fractional')->html();
+        return (float) $price;
     }
 
     /**
