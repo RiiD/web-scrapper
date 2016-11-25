@@ -7,9 +7,9 @@ interface WebScrapper {
     /**
      * WebScrapper constructor. Gets page to be scrapped.
      *
-     * @param string $page
+     * @param \phpQueryObject $dom
      */
-    public function __construct(string $page);
+    public function __construct(\phpQueryObject $dom);
 
     /**
      * Extracts data from given page and returns it.

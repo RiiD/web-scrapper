@@ -30,7 +30,7 @@ class AmazonProductService {
 
         $page = file_get_contents($url);
 
-        $scrapper = new AmazonFirstProductScrapper($page);
+        $scrapper = new AmazonFirstProductScrapper(\phpQuery::newDocument($page));
         $data = $scrapper->getData();
 
         if($data === null) {

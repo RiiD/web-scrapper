@@ -4,15 +4,15 @@ namespace Slidely\WebScrapper;
 
 abstract class AmazonProductScrapper implements WebScrapper {
 
-    protected $page;
+    protected $dom;
 
     /**
-     * WebScrapper constructor. Gets page to be scrapped.
+     * WebScrapper constructor.
      *
-     * @param string $page
+     * @param \phpQueryObject $dom
      */
-    public function __construct(string $page) {
-        $this->page = \phpQuery::newDocument($page);
+    public function __construct(\phpQueryObject $dom) {
+        $this->dom = \phpQuery::newDocument($dom);
     }
 
     /**
