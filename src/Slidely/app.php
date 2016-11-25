@@ -35,10 +35,14 @@ $app->get('/api/product-search', function (Request $request, Response $response)
 
     $params = $request->getQueryParams();
 
-    $keyword = $params['keyword'];
+    $keyword = $params['keyword'] ?? null;
 
     /** @var AmazonProductService $amazonProductService */
     $amazonProductService = $this->amazonProductService;
+
+    if ($keyword === null) {
+        return $response->withStatus(400, 'Bad request: `keyword` parameter is required.');
+    }
 
     try {
         $productResponse = $amazonProductService->getFirstProduct($keyword);
