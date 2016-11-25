@@ -1,0 +1,20 @@
+{
+    "name": "slidely/webscraper",
+    "description": "Web scraper application for slidely test.",
+    "type": "project",
+    "require": {
+        "slim/slim": "^3.6",
+        "electrolinux/phpquery": "^0.9.6"
+    },
+    "authors": [
+        {
+            "name": "Nadir Miralimov",
+            "email": "riidan@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+}
