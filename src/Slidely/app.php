@@ -4,6 +4,7 @@ namespace Slidely;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use Slidely\Exception\NotFoundException;
 use Slidely\Service\AmazonProductService;
 use Slim\App;
 
@@ -39,8 +40,12 @@ $app->get('/api/product-search', function (Request $request, Response $response)
     /** @var AmazonProductService $amazonProductService */
     $amazonProductService = $this->amazonProductService;
 
-    $productResponse = $amazonProductService->getFirstProduct($keyword);
+    try {
+        $productResponse = $amazonProductService->getFirstProduct($keyword);
+        return $response->withJson($productResponse->jsonSerialize());
+    }catch (NotFoundException $e) {
+        return $response->withStatus(404);
+    }
 
-    return $response->withJson($productResponse->jsonSerialize());
 });
 $app->run();
